@@ -26,6 +26,12 @@
             <groupId>hu.uni.miskolc.iit.uhv61t.jobSeeker</groupId>
             <artifactId>core</artifactId>
         </dependency>
+        <dependency>
+            <groupId>hu.uni.miskolc.iit.uhv61t.jobSeeker</groupId>
+            <artifactId>core</artifactId>
+            <version>1.0-SNAPSHOT</version>
+            <scope>compile</scope>
+        </dependency>
     </dependencies>
 
     <build>
