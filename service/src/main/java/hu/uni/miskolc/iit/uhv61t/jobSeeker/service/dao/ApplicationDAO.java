@@ -10,19 +10,54 @@ import java.util.Collection;
  * @see hu.uni.miskolc.iit.uhv61t.jobSeeker.core.model.Application
  */
 public interface ApplicationDAO {
+    /**
+     * Reads all the applications from the database.
+     * @return All persisted applications.
+     * @throws NoApplicationFoundException
+     */
     Collection<Application> readAllApplications() throws NoApplicationFoundException;
 
+    /**
+     * Reads all applications of the given company from the database.
+     * @param company The company to search applications of.
+     * @throws NoApplicationFoundException
+     * @throws NotExistingCompanyException
+     */
     Collection<Application> readApplicationsByCompany(Company company)
             throws NoApplicationFoundException, NotExistingCompanyException;
 
+    /**
+     * Reads all applications of the given applicant from the database.
+     * @param applicant The applicant to search applications of.
+     * @throws NoApplicationFoundException
+     * @throws NotExistingApplicantException
+     */
     Collection<Application> readApplicationsByApplicant(Applicant applicant)
             throws NoApplicationFoundException, NotExistingApplicantException;
 
+    /**
+     * Reads all applications to the given job from the database.
+     * @param job The job to search applications to.
+     * @throws NoApplicationFoundException
+     * @throws NotExistingJobException
+     */
     Collection<Application> readApplicationsByJob(Job job) throws NoApplicationFoundException, NotExistingJobException;
 
+    /**
+     * Reads all applications, that contain salary demand between the given salary interval from the database.
+     * @param minimumSalary Minimum salary demand.
+     * @param maximumSalary Maximum salary demand.
+     * @throws NoApplicationFoundException
+     * @throws MalformedSalaryIntervalException
+     */
     Collection<Application> readApplicationsBySalaryDemand(long minimumSalary, long maximumSalary)
             throws NoApplicationFoundException, MalformedSalaryIntervalException;
 
+    /**
+     * Reads all applications which are above the required education level.
+     * @param level The required minimal education level.
+     * @throws NoApplicationFoundException
+     */
     Collection<Application> readApplicationsByRequiredEducationLevel(EducationLevel level)
             throws NoApplicationFoundException;
 
