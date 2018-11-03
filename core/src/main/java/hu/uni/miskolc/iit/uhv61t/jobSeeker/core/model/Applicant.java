@@ -170,4 +170,19 @@ public class Applicant {
     public void setProfession(String profession) {
         this.profession = profession;
     }
+
+    @Override
+    public String toString() {
+        return "Applicant{" +
+                "applicantId=" + applicantId +
+                ", username='" + username + '\'' +
+                ", password=" + password +
+                ", name='" + name + '\'' +
+                ", birthDate=" + birthDate +
+                ", email='" + email + '\'' +
+                ", mobile='" + mobile + '\'' +
+                ", educationLevel=" + educationLevel +
+                ", profession='" + profession + '\'' +
+                '}';
+    }
 }

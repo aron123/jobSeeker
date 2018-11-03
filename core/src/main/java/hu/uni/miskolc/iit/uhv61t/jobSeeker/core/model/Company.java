@@ -66,4 +66,14 @@ public class Company {
     public void setEmployeeCount(int employeeCount) {
         this.employeeCount = employeeCount;
     }
+
+    @Override
+    public String toString() {
+        return "Company{" +
+                "companyId=" + companyId +
+                ", companyName='" + companyName + '\'' +
+                ", description='" + description + '\'' +
+                ", employeeCount=" + employeeCount +
+                '}';
+    }
 }

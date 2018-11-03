@@ -5,12 +5,12 @@ import org.mindrot.jbcrypt.BCrypt;
 /**
  * Represents the user's password.
  */
-public class Password {
+public final class Password {
 
     /**
      * Length of the password salt.
      */
-    private int saltLength = 7;
+    private final int saltLength = 7;
 
     /**
      * Hash of the plain text password.
@@ -23,5 +23,13 @@ public class Password {
 
     public String getPasswordHash () {
         return passwordHash;
+    }
+
+    @Override
+    public String toString() {
+        return "Password{" +
+                "saltLength=" + saltLength +
+                ", passwordHash='" + passwordHash + '\'' +
+                '}';
     }
 }

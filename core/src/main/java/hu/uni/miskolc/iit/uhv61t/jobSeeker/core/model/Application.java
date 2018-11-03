@@ -108,4 +108,15 @@ public class Application {
     public void setMotivationLetter(String motivationLetter) {
         this.motivationLetter = motivationLetter;
     }
+
+    @Override
+    public String toString() {
+        return "Application{" +
+                "applicationId=" + applicationId +
+                ", applicant=" + applicant +
+                ", job=" + job +
+                ", salaryDemand=" + salaryDemand +
+                ", motivationLetter='" + motivationLetter + '\'' +
+                '}';
+    }
 }

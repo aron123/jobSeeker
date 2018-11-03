@@ -110,4 +110,16 @@ public class Job {
     public void setRequiredEducationLevel(EducationLevel requiredEducationLevel) {
         this.requiredEducationLevel = requiredEducationLevel;
     }
+
+    @Override
+    public String toString() {
+        return "Job{" +
+                "jobId=" + jobId +
+                ", company=" + company +
+                ", description='" + description + '\'' +
+                ", minimumSalary=" + minimumSalary +
+                ", maximumSalary=" + maximumSalary +
+                ", requiredEducationLevel=" + requiredEducationLevel +
+                '}';
+    }
 }
