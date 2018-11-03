@@ -36,7 +36,7 @@ public class JobDAOImpl implements JobDAO {
         String description = job.getDescription();
         long minimumSalary = job.getMinimumSalary();
         long maximumSalary = job.getMaximumSalary();
-        int educationLevel = job.getRequiredEducationLevel().ordinal();
+        int educationLevel = job.getRequiredEducationLevel().getLevel();
 
         PreparedStatement stmt = connection.prepareStatement(
                 "INSERT INTO Jobs (companyId, description, minimumSalary, maximumSalary, educationLevel) " +
@@ -94,7 +94,7 @@ public class JobDAOImpl implements JobDAO {
         String jobDescription = rs.getString("jobDescription");
         long minimumSalary = rs.getLong("minimumSalary");
         long maximumSalary = rs.getLong("maximumSalary");
-        EducationLevel educationLevel = EducationLevel.values()[ rs.getInt("educationLevel") ];
+        EducationLevel educationLevel = EducationLevel.getByNumber(rs.getInt("educationLevel"));
 
         // get Company data
         int companyId = rs.getInt("companyId");

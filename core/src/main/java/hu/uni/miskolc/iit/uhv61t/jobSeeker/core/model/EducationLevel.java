@@ -16,4 +16,25 @@ public enum EducationLevel {
     EducationLevel (int level) {
         this.level = level;
     }
+
+    public static EducationLevel getByNumber (int level) {
+        for (EducationLevel i : EducationLevel.values()) {
+            if (i.getLevel() == level) {
+                return i;
+            }
+        }
+
+        return null;
+    }
+
+    public int getLevel () {
+        return level;
+    }
+
+    @Override
+    public String toString() {
+        return "EducationLevel{" +
+                "level=" + level +
+                '}';
+    }
 }
