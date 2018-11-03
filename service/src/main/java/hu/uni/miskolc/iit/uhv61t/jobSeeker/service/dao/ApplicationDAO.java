@@ -27,6 +27,15 @@ public interface ApplicationDAO {
             throws NoApplicationFoundException, NotExistingCompanyException;
 
     /**
+     * Reads all applications of the given company from the database.
+     * @param companyId The id of the company to search applications of.
+     * @throws NoApplicationFoundException
+     * @throws NotExistingCompanyException
+     */
+    Collection<Application> readApplicationsByCompany(int companyId)
+            throws NoApplicationFoundException, NotExistingCompanyException;
+
+    /**
      * Reads all applications of the given applicant from the database.
      * @param applicant The applicant to search applications of.
      * @throws NoApplicationFoundException
