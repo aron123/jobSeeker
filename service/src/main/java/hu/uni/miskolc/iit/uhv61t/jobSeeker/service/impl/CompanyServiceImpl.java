@@ -1,6 +1,7 @@
 package hu.uni.miskolc.iit.uhv61t.jobSeeker.service.impl;
 
 import hu.uni.miskolc.iit.uhv61t.jobSeeker.core.exception.ExistingJobException;
+import hu.uni.miskolc.iit.uhv61t.jobSeeker.core.exception.MalformedSalaryIntervalException;
 import hu.uni.miskolc.iit.uhv61t.jobSeeker.core.exception.NoApplicationFoundException;
 import hu.uni.miskolc.iit.uhv61t.jobSeeker.core.exception.NotExistingCompanyException;
 import hu.uni.miskolc.iit.uhv61t.jobSeeker.core.model.Application;
@@ -9,6 +10,7 @@ import hu.uni.miskolc.iit.uhv61t.jobSeeker.core.service.CompanyService;
 import hu.uni.miskolc.iit.uhv61t.jobSeeker.service.dao.ApplicationDAO;
 import hu.uni.miskolc.iit.uhv61t.jobSeeker.service.dao.JobDAO;
 
+import java.sql.SQLException;
 import java.util.Collection;
 
 public class CompanyServiceImpl implements CompanyService {
@@ -27,7 +29,7 @@ public class CompanyServiceImpl implements CompanyService {
      * @param job The job advertise to add.
      * @return The Job object what is added to the database (ID is set).
      */
-    public Job advertiseJob(Job job) throws ExistingJobException {
+    public Job advertiseJob(Job job) throws ExistingJobException, SQLException, MalformedSalaryIntervalException {
         return jobDAO.createJob(job);
     }
 
