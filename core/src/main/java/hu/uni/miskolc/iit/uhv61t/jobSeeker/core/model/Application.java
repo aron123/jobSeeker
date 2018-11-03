@@ -1,6 +1,5 @@
 package hu.uni.miskolc.iit.uhv61t.jobSeeker.core.model;
 
-import com.sun.istack.internal.NotNull;
 import hu.uni.miskolc.iit.uhv61t.jobSeeker.core.exception.InvalidSalaryDemandException;
 
 /**
@@ -10,19 +9,16 @@ public class Application {
     /**
      * ID of the application.
      */
-    @NotNull
     private int applicationId;
 
     /**
      * The applicant job seeker.
      */
-    @NotNull
     private Applicant applicant;
 
     /**
      * The job which the applicant applied for.
      */
-    @NotNull
     private Job job;
 
     /**

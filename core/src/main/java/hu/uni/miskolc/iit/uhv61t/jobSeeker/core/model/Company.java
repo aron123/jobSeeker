@@ -9,13 +9,11 @@ public class Company {
     /**
      * ID of the company.
      */
-    @NotNull
     private int companyId;
 
     /**
      * Name of the company.
      */
-    @NotNull
     private String companyName;
 
     /**

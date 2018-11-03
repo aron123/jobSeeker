@@ -10,13 +10,11 @@ public class Job {
     /**
      * ID of the job.
      */
-    @NotNull
     private int jobId;
 
     /**
      * The company which advertised the job.
      */
-    @NotNull
     private Company company;
 
     /**

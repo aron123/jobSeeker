@@ -13,25 +13,21 @@ public class Applicant {
     /**
      * ID of the applicant.
      */
-    @NotNull
     private int applicantId;
 
     /**
      * The applicant's username.
      */
-    @NotNull
     private String username;
 
     /**
      * The applicant's password.
      */
-    @NotNull
     private Password password;
 
     /**
      * The applicant's real name.
      */
-    @NotNull
     private String name;
 
     /**
