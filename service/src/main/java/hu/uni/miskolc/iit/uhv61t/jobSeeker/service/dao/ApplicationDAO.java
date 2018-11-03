@@ -15,7 +15,7 @@ public interface ApplicationDAO {
      * @return All persisted applications.
      * @throws NoApplicationFoundException
      */
-    Collection<Application> readAllApplications() throws NoApplicationFoundException;
+    Collection<Application> readAllApplications() throws NoApplicationFoundException, PersistenceException;
 
     /**
      * Reads all applications of the given company from the database.
@@ -24,7 +24,7 @@ public interface ApplicationDAO {
      * @throws NotExistingCompanyException
      */
     Collection<Application> readApplicationsByCompany(Company company)
-            throws NoApplicationFoundException, NotExistingCompanyException;
+            throws NoApplicationFoundException, NotExistingCompanyException, PersistenceException;
 
     /**
      * Reads all applications of the given company from the database.
@@ -33,7 +33,7 @@ public interface ApplicationDAO {
      * @throws NotExistingCompanyException
      */
     Collection<Application> readApplicationsByCompany(int companyId)
-            throws NoApplicationFoundException, NotExistingCompanyException;
+            throws NoApplicationFoundException, NotExistingCompanyException, PersistenceException;
 
     /**
      * Reads all applications of the given applicant from the database.
@@ -42,7 +42,7 @@ public interface ApplicationDAO {
      * @throws NotExistingApplicantException
      */
     Collection<Application> readApplicationsByApplicant(Applicant applicant)
-            throws NoApplicationFoundException, NotExistingApplicantException;
+            throws NoApplicationFoundException, NotExistingApplicantException, PersistenceException;
 
     /**
      * Reads all applications to the given job from the database.
@@ -50,7 +50,8 @@ public interface ApplicationDAO {
      * @throws NoApplicationFoundException
      * @throws NotExistingJobException
      */
-    Collection<Application> readApplicationsByJob(Job job) throws NoApplicationFoundException, NotExistingJobException;
+    Collection<Application> readApplicationsByJob(Job job)
+            throws NoApplicationFoundException, NotExistingJobException, PersistenceException;
 
     /**
      * Reads all applications, that contain salary demand between the given salary interval from the database.
@@ -60,7 +61,7 @@ public interface ApplicationDAO {
      * @throws MalformedSalaryIntervalException
      */
     Collection<Application> readApplicationsBySalaryDemand(long minimumSalary, long maximumSalary)
-            throws NoApplicationFoundException, MalformedSalaryIntervalException;
+            throws NoApplicationFoundException, MalformedSalaryIntervalException, PersistenceException;
 
     /**
      * Reads all applications which are above the required education level.
@@ -68,6 +69,6 @@ public interface ApplicationDAO {
      * @throws NoApplicationFoundException
      */
     Collection<Application> readApplicationsByRequiredEducationLevel(EducationLevel level)
-            throws NoApplicationFoundException;
+            throws NoApplicationFoundException, PersistenceException;
 
 }
