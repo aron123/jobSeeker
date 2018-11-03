@@ -3,6 +3,7 @@ package hu.uni.miskolc.iit.uhv61t.jobSeeker.core.service;
 
 import hu.uni.miskolc.iit.uhv61t.jobSeeker.core.exception.ExistingJobException;
 import hu.uni.miskolc.iit.uhv61t.jobSeeker.core.exception.NoApplicationFoundException;
+import hu.uni.miskolc.iit.uhv61t.jobSeeker.core.exception.NotExistingCompanyException;
 import hu.uni.miskolc.iit.uhv61t.jobSeeker.core.model.Application;
 import hu.uni.miskolc.iit.uhv61t.jobSeeker.core.model.Job;
 
@@ -24,5 +25,5 @@ public interface CompanyService {
      * Lists applications to the given company.
      * @param companyId ID of the company to search for.
      */
-    public Collection<Application> listApplications (int companyId) throws NoApplicationFoundException;
+    public Collection<Application> listApplications (int companyId) throws NoApplicationFoundException, NotExistingCompanyException;
 }
