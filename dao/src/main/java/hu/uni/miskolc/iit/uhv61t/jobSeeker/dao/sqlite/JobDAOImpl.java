@@ -2,6 +2,7 @@ package hu.uni.miskolc.iit.uhv61t.jobSeeker.dao.sqlite;
 
 import hu.uni.miskolc.iit.uhv61t.jobSeeker.core.exception.ExistingJobException;
 import hu.uni.miskolc.iit.uhv61t.jobSeeker.core.exception.MalformedSalaryIntervalException;
+import hu.uni.miskolc.iit.uhv61t.jobSeeker.core.exception.PersistenceException;
 import hu.uni.miskolc.iit.uhv61t.jobSeeker.core.model.Company;
 import hu.uni.miskolc.iit.uhv61t.jobSeeker.core.model.EducationLevel;
 import hu.uni.miskolc.iit.uhv61t.jobSeeker.core.model.Job;
@@ -16,28 +17,57 @@ public class JobDAOImpl implements JobDAO {
 
     private Connection connection;
 
-    /**
-     * Creates new DAO instance.
-     * @throws SQLException
-     * @throws ClassNotFoundException
-     */
-    public JobDAOImpl() throws SQLException, ClassNotFoundException {
-        connection = new SQLiteDatabaseManager().getConnection();
+    public JobDAOImpl() throws PersistenceException {
+        try {
+            connection = new SQLiteDatabaseManager().getConnection();
+        } catch (SQLException|ClassNotFoundException e) {
+            throw new PersistenceException("Unable to connect to database.", e);
+        }
     }
 
     /**
-     * Creates a new job in database and returns the added job as Job object.
+     * Creates a new job in database and returns the added job.
      *
      * @param job The job to add.
+     * @return The added job (with the record ID).
      * @throws ExistingJobException
      */
-    public Job createJob(Job job) throws SQLException, MalformedSalaryIntervalException {
+    public Job createJob(Job job) throws PersistenceException {
+        //get values to add to database
         int companyId = job.getCompany().getCompanyId();
         String description = job.getDescription();
         long minimumSalary = job.getMinimumSalary();
         long maximumSalary = job.getMaximumSalary();
         int educationLevel = job.getRequiredEducationLevel().getLevel();
 
+        //add the job to database
+        int recordId;
+        try {
+            recordId = persistJob(companyId, description, minimumSalary, maximumSalary, educationLevel);
+        } catch (SQLException e) {
+            throw new PersistenceException("Unable to add job to database.", e);
+        }
+
+        //query the added job and return it
+        try {
+            return getJobById(recordId);
+        } catch (SQLException e) {
+            throw new PersistenceException("Job record added to database, but unable to get.", e);
+        }
+    }
+
+    /**
+     * Adds job to the database.
+     * @param companyId ID of the company, what advertises the job.
+     * @param description Description of the job advertise.
+     * @param minimumSalary Offered minimum salary.
+     * @param maximumSalary Offered maximum salary.
+     * @param educationLevel Required minimum education level.
+     * @return ID of the added job.
+     * @throws SQLException
+     */
+    private int persistJob (int companyId, String description, long minimumSalary, long maximumSalary,
+                             Integer educationLevel) throws SQLException {
         PreparedStatement stmt = connection.prepareStatement(
                 "INSERT INTO Jobs (companyId, description, minimumSalary, maximumSalary, educationLevel) " +
                         "VALUES (?, ?, ?, ?, ?)",
@@ -49,15 +79,14 @@ public class JobDAOImpl implements JobDAO {
         stmt.setLong(4, maximumSalary);
         stmt.setInt(5, educationLevel);
 
-        int changes = stmt.executeUpdate();
+        stmt.executeUpdate();
         ResultSet rs = stmt.getGeneratedKeys();
 
         if (!rs.next()) {
-            throw new SQLException("Error occured on INSERT query.");
+            throw new SQLException();
         }
 
-        int id = rs.getInt(1);
-        return getJobById(id);
+        return rs.getInt(1);
     }
 
     /**
@@ -67,7 +96,7 @@ public class JobDAOImpl implements JobDAO {
      * @throws SQLException
      * @throws MalformedSalaryIntervalException
      */
-    private Job getJobById (int id) throws SQLException, MalformedSalaryIntervalException {
+    private Job getJobById (int id) throws SQLException {
         // query data
         PreparedStatement stmt = connection.prepareStatement(
                 "SELECT j.id jobId, " +
@@ -103,13 +132,19 @@ public class JobDAOImpl implements JobDAO {
         int employeeCount = rs.getInt("employeeCount");
 
         // return Job instance
-        return new Job(
+        try {
+            return new Job(
                 jobId,
                 new Company(companyId, companyName, companyDescription, employeeCount),
                 jobDescription,
                 minimumSalary,
                 maximumSalary,
                 educationLevel
-        );
+            );
+        } catch (MalformedSalaryIntervalException e) {
+            System.err.printf("Wrong Job data has been added to database (id: %d, minimumSalary: %o, maximumSalary: %o)",
+                    jobId, minimumSalary, maximumSalary);
+            throw new SQLException(e);
+        }
     }
 }
