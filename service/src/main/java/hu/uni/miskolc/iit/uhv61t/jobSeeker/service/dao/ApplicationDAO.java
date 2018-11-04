@@ -24,16 +24,7 @@ public interface ApplicationDAO {
      * @throws NotExistingCompanyException
      */
     Collection<Application> readApplicationsByCompany(Company company)
-            throws NoApplicationFoundException, NotExistingCompanyException, PersistenceException;
-
-    /**
-     * Reads all applications of the given company from the database.
-     * @param companyId The id of the company to search applications of.
-     * @throws NoApplicationFoundException
-     * @throws NotExistingCompanyException
-     */
-    Collection<Application> readApplicationsByCompany(int companyId)
-            throws NoApplicationFoundException, NotExistingCompanyException, PersistenceException;
+            throws NoApplicationFoundException, PersistenceException;
 
     /**
      * Reads all applications of the given applicant from the database.
@@ -42,7 +33,7 @@ public interface ApplicationDAO {
      * @throws NotExistingApplicantException
      */
     Collection<Application> readApplicationsByApplicant(Applicant applicant)
-            throws NoApplicationFoundException, NotExistingApplicantException, PersistenceException;
+            throws NoApplicationFoundException, PersistenceException;
 
     /**
      * Reads all applications to the given job from the database.
@@ -51,7 +42,7 @@ public interface ApplicationDAO {
      * @throws NotExistingJobException
      */
     Collection<Application> readApplicationsByJob(Job job)
-            throws NoApplicationFoundException, NotExistingJobException, PersistenceException;
+            throws NoApplicationFoundException, PersistenceException;
 
     /**
      * Reads all applications, that contain salary demand between the given salary interval from the database.
