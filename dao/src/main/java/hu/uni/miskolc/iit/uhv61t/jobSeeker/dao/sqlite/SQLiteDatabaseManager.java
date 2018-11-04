@@ -9,12 +9,6 @@ import java.sql.Statement;
  * Manages connection with SQLite database.
  */
 final class SQLiteDatabaseManager {
-
-    /**
-     * Connection to the database.
-     */
-    private Connection connection = null;
-
     /**
      * Name of JDBC driver class to load into memory.
      */
@@ -44,15 +38,15 @@ final class SQLiteDatabaseManager {
 
     public SQLiteDatabaseManager() throws SQLException, ClassNotFoundException {
         Class.forName(this.JDBCDriverName);
-        buildConnection();
         initializeTables();
     }
 
     /**
-     * Builds connection to SQLite database.
+     * Returns a valid connection object to SQLite database.
+     * @throws SQLException
      */
-    private void buildConnection () throws SQLException {
-        this.connection = DriverManager.getConnection(this.connectionURL);
+    public Connection getConnection () throws SQLException {
+        return DriverManager.getConnection(this.connectionURL);
     }
 
     /**
@@ -61,17 +55,8 @@ final class SQLiteDatabaseManager {
      */
     private void initializeTables () throws SQLException {
         for (String command : this.tableInitializatorCommands) {
-            Statement stmt = connection.createStatement();
+            Statement stmt = this.getConnection().createStatement();
             stmt.execute(command);
         }
-    }
-
-    /**
-     * Returns a valid connection object to SQLite database.
-     * @throws SQLException
-     */
-    public Connection getConnection() throws SQLException {
-        buildConnection();
-        return connection;
     }
 }
