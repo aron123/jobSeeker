@@ -12,8 +12,6 @@
     <artifactId>service</artifactId>
 
     <name>service</name>
-    <!-- FIXME change it to the project's website -->
-    <url>http://www.example.com</url>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -22,10 +20,6 @@
     </properties>
 
     <dependencies>
-        <dependency>
-            <groupId>hu.uni.miskolc.iit.uhv61t.jobSeeker</groupId>
-            <artifactId>core</artifactId>
-        </dependency>
         <dependency>
             <groupId>hu.uni.miskolc.iit.uhv61t.jobSeeker</groupId>
             <artifactId>core</artifactId>

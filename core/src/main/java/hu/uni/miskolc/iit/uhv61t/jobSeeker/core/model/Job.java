@@ -1,6 +1,5 @@
 package hu.uni.miskolc.iit.uhv61t.jobSeeker.core.model;
 
-import com.sun.istack.internal.NotNull;
 import hu.uni.miskolc.iit.uhv61t.jobSeeker.core.exception.MalformedSalaryIntervalException;
 
 /**

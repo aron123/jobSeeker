@@ -12,9 +12,7 @@
     <artifactId>web</artifactId>
     <packaging>war</packaging>
 
-    <name>Job Seeker Assignment</name>
-    <!-- FIXME change it to the project's website -->
-    <url>http://www.example.com</url>
+    <name>web</name>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -26,6 +24,7 @@
         <dependency>
             <groupId>hu.uni.miskolc.iit.uhv61t.jobSeeker</groupId>
             <artifactId>controller</artifactId>
+            <version>1.0-SNAPSHOT</version>
         </dependency>
     </dependencies>
 
