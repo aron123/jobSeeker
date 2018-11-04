@@ -119,7 +119,12 @@ public class ApplicationDAOImpl implements ApplicationDAO {
      * @throws PersistenceException
      */
     public Collection<Application> readApplicationsBySalaryDemand(long minimumSalary, long maximumSalary)
-            throws NoApplicationFoundException, PersistenceException {
+            throws NoApplicationFoundException, PersistenceException, MalformedSalaryIntervalException {
+
+        if (maximumSalary < minimumSalary) {
+            throw new MalformedSalaryIntervalException();
+        }
+
         ResultSet rs;
 
         try {

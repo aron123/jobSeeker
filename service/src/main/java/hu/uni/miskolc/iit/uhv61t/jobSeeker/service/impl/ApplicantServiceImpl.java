@@ -1,9 +1,6 @@
 package hu.uni.miskolc.iit.uhv61t.jobSeeker.service.impl;
 
-import hu.uni.miskolc.iit.uhv61t.jobSeeker.core.exception.MalformedSalaryIntervalException;
-import hu.uni.miskolc.iit.uhv61t.jobSeeker.core.exception.NoApplicationFoundException;
-import hu.uni.miskolc.iit.uhv61t.jobSeeker.core.exception.NotExistingApplicantException;
-import hu.uni.miskolc.iit.uhv61t.jobSeeker.core.exception.NotExistingJobException;
+import hu.uni.miskolc.iit.uhv61t.jobSeeker.core.exception.*;
 import hu.uni.miskolc.iit.uhv61t.jobSeeker.core.model.Applicant;
 import hu.uni.miskolc.iit.uhv61t.jobSeeker.core.model.Application;
 import hu.uni.miskolc.iit.uhv61t.jobSeeker.core.model.EducationLevel;
@@ -26,7 +23,7 @@ public class ApplicantServiceImpl implements ApplicantService {
      *
      * @return All applications in the database.
      */
-    public Collection<Application> listAllApplications() throws NoApplicationFoundException {
+    public Collection<Application> listAllApplications() throws NoApplicationFoundException, PersistenceException {
         return dao.readAllApplications();
     }
 
@@ -36,7 +33,7 @@ public class ApplicantServiceImpl implements ApplicantService {
      * @param applicant The applicant who's applications are searched.
      */
     public Collection<Application> listApplicationsByApplicant(Applicant applicant)
-            throws NoApplicationFoundException, NotExistingApplicantException {
+            throws NoApplicationFoundException, PersistenceException {
         return dao.readApplicationsByApplicant(applicant);
     }
 
@@ -45,7 +42,7 @@ public class ApplicantServiceImpl implements ApplicantService {
      *
      * @param job The job what's applications are searched.
      */
-    public Collection<Application> listApplicationsByJob(Job job) throws NoApplicationFoundException, NotExistingJobException {
+    public Collection<Application> listApplicationsByJob(Job job) throws NoApplicationFoundException, PersistenceException {
         return dao.readApplicationsByJob(job);
     }
 
@@ -56,7 +53,7 @@ public class ApplicantServiceImpl implements ApplicantService {
      * @param maximumSalary The maximum salary demand.
      */
     public Collection<Application> listApplicationsBySalaryDemand(long minimumSalary, long maximumSalary)
-            throws NoApplicationFoundException, MalformedSalaryIntervalException {
+            throws NoApplicationFoundException, MalformedSalaryIntervalException, PersistenceException {
         return dao.readApplicationsBySalaryDemand(minimumSalary, maximumSalary);
     }
 
@@ -66,7 +63,7 @@ public class ApplicantServiceImpl implements ApplicantService {
      * @param level The required minimal education level.
      */
     public Collection<Application> listApplicationsByRequiredEducationLevel(EducationLevel level)
-            throws NoApplicationFoundException {
+            throws NoApplicationFoundException, PersistenceException {
         return dao.readApplicationsByRequiredEducationLevel(level);
     }
 }
