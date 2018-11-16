@@ -2,10 +2,8 @@ package hu.uni.miskolc.iit.uhv61t.jobSeeker.controller;
 
 import hu.uni.miskolc.iit.uhv61t.jobSeeker.core.exception.MalformedSalaryIntervalException;
 import hu.uni.miskolc.iit.uhv61t.jobSeeker.core.exception.PersistenceException;
-import hu.uni.miskolc.iit.uhv61t.jobSeeker.core.model.Company;
-import hu.uni.miskolc.iit.uhv61t.jobSeeker.core.model.EducationLevel;
 import hu.uni.miskolc.iit.uhv61t.jobSeeker.core.model.Job;
-import hu.uni.miskolc.iit.uhv61t.jobSeeker.core.service.CompanyService;
+import hu.uni.miskolc.iit.uhv61t.jobSeeker.core.service.JobService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -19,10 +17,10 @@ import hu.uni.miskolc.iit.uhv61t.jobSeeker.controller.dto.*;
 @RequestMapping(path = "/api/jobs", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 public class JobController extends BaseController {
 
-    private CompanyService companyService;
+    private JobService jobService;
 
-    public JobController(CompanyService companyService) {
-        this.companyService = companyService;
+    public JobController(JobService jobService) {
+        this.jobService = jobService;
     }
 
     /**
@@ -35,7 +33,7 @@ public class JobController extends BaseController {
     @PostMapping(path = "/advertise", consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public @ResponseBody JobResponse advertiseJob (@RequestBody JobRequest jobRequest)
             throws PersistenceException, MalformedSalaryIntervalException {
-        Job addedJob = companyService.advertiseJob(Converter.convertJobRequestToJob(jobRequest));
+        Job addedJob = jobService.advertiseJob(Converter.convertJobRequestToJob(jobRequest));
         return this.getSuccessResponse(addedJob);
    }
 

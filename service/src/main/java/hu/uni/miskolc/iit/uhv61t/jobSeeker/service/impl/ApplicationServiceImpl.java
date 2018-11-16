@@ -1,20 +1,17 @@
 package hu.uni.miskolc.iit.uhv61t.jobSeeker.service.impl;
 
 import hu.uni.miskolc.iit.uhv61t.jobSeeker.core.exception.*;
-import hu.uni.miskolc.iit.uhv61t.jobSeeker.core.model.Applicant;
-import hu.uni.miskolc.iit.uhv61t.jobSeeker.core.model.Application;
-import hu.uni.miskolc.iit.uhv61t.jobSeeker.core.model.EducationLevel;
-import hu.uni.miskolc.iit.uhv61t.jobSeeker.core.model.Job;
-import hu.uni.miskolc.iit.uhv61t.jobSeeker.core.service.ApplicantService;
+import hu.uni.miskolc.iit.uhv61t.jobSeeker.core.model.*;
+import hu.uni.miskolc.iit.uhv61t.jobSeeker.core.service.ApplicationService;
 import hu.uni.miskolc.iit.uhv61t.jobSeeker.service.dao.ApplicationDAO;
 
 import java.util.Collection;
 
-public class ApplicantServiceImpl implements ApplicantService {
+public class ApplicationServiceImpl implements ApplicationService {
 
     ApplicationDAO dao;
 
-    public ApplicantServiceImpl(ApplicationDAO dao) {
+    public ApplicationServiceImpl(ApplicationDAO dao) {
         this.dao = dao;
     }
 
@@ -65,5 +62,15 @@ public class ApplicantServiceImpl implements ApplicantService {
     public Collection<Application> listApplicationsByRequiredEducationLevel(EducationLevel level)
             throws NoApplicationFoundException, PersistenceException {
         return dao.readApplicationsByRequiredEducationLevel(level);
+    }
+
+    /**
+     * Lists applications to the given company.
+     *
+     * @param company The company to search for.
+     */
+    public Collection<Application> listApplicationsByCompany(Company company)
+            throws NoApplicationFoundException, PersistenceException {
+        return dao.readApplicationsByCompany(company);
     }
 }

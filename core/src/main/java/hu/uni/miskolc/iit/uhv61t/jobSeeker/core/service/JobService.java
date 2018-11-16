@@ -12,7 +12,7 @@ import java.util.Collection;
 /**
  * Represents service for the companies.
  */
-public interface CompanyService {
+public interface JobService {
 
     /**
      * Adds new job to the database.
@@ -20,10 +20,4 @@ public interface CompanyService {
      * @return The Job object what is added to the database (ID is set).
      */
     public Job advertiseJob (Job job) throws PersistenceException;
-
-    /**
-     * Lists applications to the given company.
-     * @param company The company to search for.
-     */
-    public Collection<Application> listApplications (Company company) throws NoApplicationFoundException, NotExistingCompanyException, PersistenceException;
 }

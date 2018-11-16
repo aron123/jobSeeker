@@ -8,7 +8,7 @@ import java.util.Collection;
 /**
  * Represents service for the applicants.
  */
-public interface ApplicantService {
+public interface ApplicationService {
 
     /**
      * Lists all of the applications.
@@ -41,4 +41,9 @@ public interface ApplicantService {
      */
     Collection<Application> listApplicationsByRequiredEducationLevel(EducationLevel level) throws NoApplicationFoundException, PersistenceException;
 
+    /**
+     * Lists applications to the given company.
+     * @param company The company to search for.
+     */
+    public Collection<Application> listApplicationsByCompany(Company company) throws NoApplicationFoundException, NotExistingCompanyException, PersistenceException;
 }
