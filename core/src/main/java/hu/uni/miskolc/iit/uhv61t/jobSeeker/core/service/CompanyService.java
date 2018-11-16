@@ -19,7 +19,7 @@ public interface CompanyService {
      * @param job The job advertise to add.
      * @return The Job object what is added to the database (ID is set).
      */
-    public Job advertiseJob (Job job) throws ExistingJobException, SQLException, MalformedSalaryIntervalException, PersistenceException;
+    public Job advertiseJob (Job job) throws PersistenceException;
 
     /**
      * Lists applications to the given company.
