@@ -1,6 +1,5 @@
 # Job seeker
-
-This repo contains my solution to the assignment of Web Application Development Course. Details of the assignment is
+This repo contains my solution to the assignment of Web Application Development Course. Details of the assignment are
 explained [here](https://github.com/Benczus/WEBAppDev_webShopExercise).
 
 ## Author
@@ -8,6 +7,7 @@ explained [here](https://github.com/Benczus/WEBAppDev_webShopExercise).
 - Neptun code: UHV61T
 
 ## API Documentation
+In progress...
 
 ### Title of the endpoint
 - URL Pattern: 
