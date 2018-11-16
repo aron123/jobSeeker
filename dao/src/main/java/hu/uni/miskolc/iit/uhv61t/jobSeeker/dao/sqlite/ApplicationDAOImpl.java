@@ -18,8 +18,12 @@ public class ApplicationDAOImpl implements ApplicationDAO {
      */
     private Connection connection;
 
-    public ApplicationDAOImpl() throws SQLException, ClassNotFoundException {
-        this.connection = new SQLiteDatabaseManager().getConnection();
+    public ApplicationDAOImpl() throws PersistenceException, ClassNotFoundException {
+        try {
+            this.connection = new SQLiteDatabaseManager().getConnection();
+        } catch (SQLException e) {
+            throw new PersistenceException("Unable to connect to database", e);
+        }
     }
 
     /**

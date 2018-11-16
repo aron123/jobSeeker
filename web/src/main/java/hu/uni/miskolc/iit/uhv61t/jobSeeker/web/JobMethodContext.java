@@ -15,7 +15,7 @@ import java.sql.SQLException;
 @Configuration
 public class JobMethodContext {
     @Bean
-    public CompanyService companyService () throws SQLException, ClassNotFoundException, PersistenceException {
+    public CompanyService companyService () throws ClassNotFoundException, PersistenceException {
         return new CompanyServiceImpl(jobDAO(), applicationDAO());
     }
 
@@ -25,7 +25,7 @@ public class JobMethodContext {
     }
 
     @Bean
-    public ApplicationDAO applicationDAO () throws SQLException, ClassNotFoundException {
+    public ApplicationDAO applicationDAO () throws PersistenceException, ClassNotFoundException {
         return new ApplicationDAOImpl();
     }
 }
