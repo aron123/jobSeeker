@@ -38,7 +38,7 @@ public class JobDAOImpl implements JobDAO {
         String description = job.getDescription();
         long minimumSalary = job.getMinimumSalary();
         long maximumSalary = job.getMaximumSalary();
-        int educationLevel = job.getRequiredEducationLevel().getLevel();
+        String educationLevel = job.getRequiredEducationLevel().toString();
 
         //add the job to database
         int recordId;
@@ -67,7 +67,7 @@ public class JobDAOImpl implements JobDAO {
      * @throws SQLException
      */
     private int persistJob (int companyId, String description, long minimumSalary, long maximumSalary,
-                             Integer educationLevel) throws SQLException {
+                             String educationLevel) throws SQLException {
         PreparedStatement stmt = connection.prepareStatement(
                 "INSERT INTO Jobs (companyId, description, minimumSalary, maximumSalary, educationLevel) " +
                         "VALUES (?, ?, ?, ?, ?)",
@@ -77,7 +77,7 @@ public class JobDAOImpl implements JobDAO {
         stmt.setString(2, description);
         stmt.setLong(3, minimumSalary);
         stmt.setLong(4, maximumSalary);
-        stmt.setInt(5, educationLevel);
+        stmt.setString(5, educationLevel);
 
         stmt.executeUpdate();
         ResultSet rs = stmt.getGeneratedKeys();
@@ -109,7 +109,7 @@ public class JobDAOImpl implements JobDAO {
                         "c.description companyDescription, " +
                         "c.employeeCount " +
                         "FROM Jobs j INNER JOIN Companies c ON j.companyId = c.id " +
-                        "WHERE j.id=?"
+                        "WHERE jobId=?"
         );
         stmt.setInt(1, id);
         ResultSet rs = stmt.executeQuery();
@@ -123,7 +123,7 @@ public class JobDAOImpl implements JobDAO {
         String jobDescription = rs.getString("jobDescription");
         long minimumSalary = rs.getLong("minimumSalary");
         long maximumSalary = rs.getLong("maximumSalary");
-        EducationLevel educationLevel = EducationLevel.getByNumber(rs.getInt("educationLevel"));
+        EducationLevel educationLevel = EducationLevel.valueOf(rs.getString("educationLevel"));
 
         // get Company data
         int companyId = rs.getInt("companyId");

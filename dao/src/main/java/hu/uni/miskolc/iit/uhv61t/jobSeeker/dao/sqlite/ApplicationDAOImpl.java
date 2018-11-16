@@ -160,7 +160,9 @@ public class ApplicationDAOImpl implements ApplicationDAO {
         try {
             rs = this.queryApplicationsWithOneIntParam(
                     "SELECT id, applicantId, jobId, salaryDemand, motivationLetter FROM Applications WHERE educationLevel >= ?",
-                    level.getLevel()
+                    //TODO
+                    Integer.valueOf(level.toString())
+
             );
         } catch (SQLException e) {
             throw new PersistenceException(e);
@@ -231,7 +233,7 @@ public class ApplicationDAOImpl implements ApplicationDAO {
             rs.getDate("birthdate"),
             rs.getString("email"),
             rs.getString("mobile"),
-            EducationLevel.getByNumber(rs.getInt("educationLevel")),
+            EducationLevel.valueOf(rs.getString("educationLevel")),
             rs.getString("profession")
         );
     }
@@ -255,7 +257,7 @@ public class ApplicationDAOImpl implements ApplicationDAO {
             rs.getString("description"),
             rs.getLong("minimumSalary"),
             rs.getLong("maximumSalary"),
-            EducationLevel.getByNumber(rs.getInt("educationLevel"))
+            EducationLevel.valueOf(rs.getString("educationLevel"))
         );
     }
 
