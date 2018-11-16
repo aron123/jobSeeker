@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified">
+
+    <!-- Basic types to be used in Request and Response types. -->
+
+    <xs:simpleType name="EducationLevelType" final="restriction">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="NO_PRIMARY_SCHOOL"/>
+            <xs:enumeration value="PRIMARY_SCHOOL"/>
+            <xs:enumeration value="SECONDARY_SCHOOL"/>
+            <xs:enumeration value="BACHELORS_DEGREE"/>
+            <xs:enumeration value="MASTERS_DEGREE"/>
+            <xs:enumeration value="DOCTORAL_DEGREE"/>
+        </xs:restriction>
+    </xs:simpleType>
+    
+    <xs:complexType name="JobType">
+        <xs:sequence>
+            <xs:element name="jobId" type="xs:int"/>
+            <xs:element name="companyId" type="xs:int"/>
+            <xs:element name="description" type="xs:string"/>
+            <xs:element name="minimumSalary" type="xs:long"/>
+            <xs:element name="maximumSalary" type="xs:long"/>
+            <xs:element name="requiredEducationLevel" type="xs:string"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="ApplicantType">
+        <xs:sequence>
+            <xs:element name="applicantId" type="xs:int"/>
+            <xs:element name="username" type="xs:string"/>
+            <xs:element name="name" type="xs:string"/>
+            <xs:element name="email" type="xs:string"/>
+            <xs:element name="mobileNumber" type="xs:string"/>
+            <xs:element name="educationLevel" type="EducationLevelType"/>
+            <xs:element name="profession" type="xs:string"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="ApplicationType">
+        <xs:sequence>
+            <xs:element name="applicationId" type="xs:int"/>
+            <xs:element name="applicant" type="ApplicantType"/>
+            <xs:element name="job" type="JobType"/>
+            <xs:element name="salaryDemand" type="xs:long"/>
+            <xs:element name="motivationLetter" type="xs:string"/>
+        </xs:sequence>
+    </xs:complexType>
+
+
+
+    <!-- Request and Response DTO types. -->
+
+    <xs:complexType name="JobRequest">
+        <xs:sequence>
+            <xs:element name="companyId" type="xs:int"/>
+            <xs:element name="description" type="xs:string"/>
+            <xs:element name="minimumSalary" type="xs:long"/>
+            <xs:element name="maximumSalary" type="xs:long"/>
+            <xs:element name="requiredEducationLevel" type="xs:string"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="JobResponse">
+        <xs:sequence>
+            <xs:element name="success" type="xs:boolean" fixed="true"/>
+            <xs:element name="job" type="JobType"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="ApplicationCollectionResponse">
+        <xs:sequence>
+            <xs:element name="success" type="xs:boolean" fixed="true"/>
+            <xs:element name="data" type="ApplicationType" minOccurs="0" maxOccurs="unbounded"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="ErrorResponse">
+        <xs:sequence>
+            <xs:element name="success" type="xs:boolean" fixed="false"/>
+            <xs:element name="error" type="xs:string"/>
+        </xs:sequence>
+    </xs:complexType>
+</xs:schema>
