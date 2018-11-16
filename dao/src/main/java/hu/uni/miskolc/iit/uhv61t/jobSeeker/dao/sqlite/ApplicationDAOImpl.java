@@ -5,6 +5,8 @@ import hu.uni.miskolc.iit.uhv61t.jobSeeker.core.model.*;
 import hu.uni.miskolc.iit.uhv61t.jobSeeker.service.dao.ApplicationDAO;
 
 import java.sql.*;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collection;
 
@@ -192,11 +194,7 @@ public class ApplicationDAOImpl implements ApplicationDAO {
         ArrayList<Application> results = new ArrayList<>();
 
         try {
-            if (!rs.next()) {
-                throw new NoApplicationFoundException();
-            }
-
-            while (!rs.next()) {
+            while (rs.next()) {
                 results.add(new Application(
                         rs.getInt("id"),
                         this.getApplicantById(rs.getInt("applicantId")),
@@ -208,8 +206,12 @@ public class ApplicationDAOImpl implements ApplicationDAO {
         } catch (SQLException e) {
             throw new PersistenceException(e);
         } catch (MalformedMobileNumberException|MalformedEmailAddressException|MalformedSalaryIntervalException|
-                NotExistingCompanyException|InvalidSalaryDemandException e) {
+                NotExistingCompanyException|InvalidSalaryDemandException|ParseException e) {
             e.printStackTrace();
+        }
+
+        if (results.isEmpty()) {
+            throw new NoApplicationFoundException();
         }
 
         return results;
@@ -223,7 +225,7 @@ public class ApplicationDAOImpl implements ApplicationDAO {
      * @throws MalformedMobileNumberException
      * @throws MalformedEmailAddressException
      */
-    private Applicant getApplicantById (int id) throws SQLException, MalformedMobileNumberException, MalformedEmailAddressException {
+    private Applicant getApplicantById (int id) throws SQLException, MalformedMobileNumberException, MalformedEmailAddressException, ParseException {
         ResultSet rs = queryWithOneIntParam(
             "SELECT id, username, password, name, birthDate, email, mobile, educationLevel, profession " +
                     "FROM Applicants WHERE id=?", id
@@ -234,7 +236,7 @@ public class ApplicationDAOImpl implements ApplicationDAO {
             rs.getString("username"),
             null,
             rs.getString("name"),
-            rs.getDate("birthdate"),
+            new SimpleDateFormat("yyyy-MM-dd").parse(rs.getString("birthdate")),
             rs.getString("email"),
             rs.getString("mobile"),
             EducationLevel.valueOf(rs.getString("educationLevel")),
