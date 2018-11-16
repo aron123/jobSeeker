@@ -10,8 +10,6 @@ import hu.uni.miskolc.iit.uhv61t.jobSeeker.service.impl.CompanyServiceImpl;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-import java.sql.SQLException;
-
 @Configuration
 public class JobMethodContext {
     @Bean

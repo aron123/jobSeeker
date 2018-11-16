@@ -14,6 +14,7 @@ public class JobSeekerWebAppInitializer implements WebApplicationInitializer {
         AnnotationConfigWebApplicationContext annotationConfigCtx = new AnnotationConfigWebApplicationContext();
 
         annotationConfigCtx.register(JobContext.class);
+        annotationConfigCtx.register(ApplicationContext.class);
         annotationConfigCtx.setServletContext(servletContext);
 
         ServletRegistration.Dynamic servletRegistration = servletContext.addServlet(
