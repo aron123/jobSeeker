@@ -85,6 +85,8 @@ Returns all applications, where the applicant's salary demand is between the giv
 - Notes: -
 
 #### Read applications by minimum education level
+Returns all applications, where the job's required education level is equal or above the given level.
+
 - URL Pattern: /api/applications/requiredEducationLevel/:educationLevel
 - Method: GET
 - URL Parameters: 
