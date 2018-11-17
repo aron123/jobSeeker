@@ -61,7 +61,10 @@ public class ApplicationDAOImpl implements ApplicationDAO {
 
         try {
             rs = this.queryWithOneIntParam(
-                "SELECT id, applicantId, jobId, salaryDemand, motivationLetter FROM Applications WHERE companyId=?",
+                "SELECT a.id, a.applicantId, a.jobId, a.salaryDemand, a.motivationLetter " +
+                        "FROM Applications a INNER JOIN Jobs j ON a.jobId=j.id " +
+                        "INNER JOIN Companies c ON j.companyId = c.id " +
+                        "WHERE c.id=?",
                     company.getCompanyId()
             );
         } catch (SQLException e) {
