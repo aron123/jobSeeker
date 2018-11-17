@@ -2,10 +2,7 @@ package hu.uni.miskolc.iit.uhv61t.jobSeeker.controller;
 
 import com.fasterxml.jackson.databind.exc.MismatchedInputException;
 import hu.uni.miskolc.iit.uhv61t.jobSeeker.controller.dto.ErrorResponse;
-import hu.uni.miskolc.iit.uhv61t.jobSeeker.core.exception.NotExistingApplicantException;
-import hu.uni.miskolc.iit.uhv61t.jobSeeker.core.exception.NotExistingCompanyException;
-import hu.uni.miskolc.iit.uhv61t.jobSeeker.core.exception.NotExistingJobException;
-import hu.uni.miskolc.iit.uhv61t.jobSeeker.core.exception.PersistenceException;
+import hu.uni.miskolc.iit.uhv61t.jobSeeker.core.exception.*;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -54,6 +51,23 @@ public class BaseController {
     @ExceptionHandler(NotExistingCompanyException.class)
     public ResponseEntity<ErrorResponse> handleNotExistingCompanyException () {
         return this.getErrorResponseEntity("No company exists with the given ID", HttpStatus.NOT_FOUND);
+    }
+
+    /**
+     * Handles NoApplicationFoundException exception.
+     */
+    @ExceptionHandler(NoApplicationFoundException.class)
+    public ResponseEntity<ErrorResponse> handleNoApplicationFoundException () {
+        return this.getErrorResponseEntity("No application found with the given conditions", HttpStatus.NOT_FOUND);
+    }
+
+    /**
+     * Handles MalformedSalaryIntervalException exception.
+     * @return Response entity with the appropriate error message and status.
+     */
+    @ExceptionHandler(MalformedSalaryIntervalException.class)
+    public ResponseEntity<ErrorResponse> handleMalformedSalaryIntervalException () {
+        return this.getErrorResponseEntity("The given salary interval is malformed", HttpStatus.BAD_REQUEST);
     }
 
     /**

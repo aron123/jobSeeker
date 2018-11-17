@@ -38,15 +38,6 @@ public class JobController extends BaseController {
    }
 
     /**
-     * Handles MalformedSalaryIntervalException exception.
-     * @return Response entity with the appropriate error message and status.
-     */
-   @ExceptionHandler(MalformedSalaryIntervalException.class)
-   public ResponseEntity<ErrorResponse> handleMalformedSalaryIntervalException () {
-        return this.getErrorResponseEntity("The given salary interval is malformed", HttpStatus.BAD_REQUEST);
-   }
-
-    /**
      * Creates JobResponse object from the given Job object.
      * @param job The job to add to response.
      * @return The successful response.

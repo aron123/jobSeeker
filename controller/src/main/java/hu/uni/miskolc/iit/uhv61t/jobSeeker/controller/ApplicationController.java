@@ -109,17 +109,6 @@ public class ApplicationController extends BaseController {
     }
 
     /**
-     * Handles NoApplicationFoundException exception.
-     */
-    @ExceptionHandler(NoApplicationFoundException.class)
-    public ResponseEntity<ErrorResponse> handleNoApplicationFoundException () {
-        ErrorResponse response =  new ErrorResponse();
-        response.setSuccess(false);
-        response.setError("No application found with the given conditions");
-        return new ResponseEntity<>(response, HttpStatus.NOT_FOUND);
-    }
-
-    /**
      * Creates success response.
      * @param applications Collection of applications.
      * @return Success response object.
