@@ -164,12 +164,12 @@ public class ApplicationDAOImpl implements ApplicationDAO {
         ResultSet rs;
 
         try {
-            rs = this.queryWithOneIntParam(
-                    "SELECT id, applicantId, jobId, salaryDemand, motivationLetter FROM Applications WHERE educationLevel >= ?",
-                    //TODO
-                    Integer.valueOf(level.toString())
-
-            );
+            PreparedStatement stmt = this.connection.prepareStatement(
+                    "SELECT a.id, a.applicantId, a.jobId, a.salaryDemand, a.motivationLetter " +
+                    "FROM Applications a INNER JOIN Jobs j ON a.jobId = j.id " +
+                    "WHERE j.educationLevel >= ?");
+            stmt.setInt(1, level.getLevel());
+            rs = stmt.executeQuery();
         } catch (SQLException e) {
             throw new PersistenceException(e);
         }
@@ -239,7 +239,7 @@ public class ApplicationDAOImpl implements ApplicationDAO {
             new SimpleDateFormat("yyyy-MM-dd").parse(rs.getString("birthdate")),
             rs.getString("email"),
             rs.getString("mobile"),
-            EducationLevel.valueOf(rs.getString("educationLevel")),
+            this.getEducationLevelFromInt(rs.getInt("educationLevel")),
             rs.getString("profession")
         );
     }
@@ -263,7 +263,7 @@ public class ApplicationDAOImpl implements ApplicationDAO {
             rs.getString("description"),
             rs.getLong("minimumSalary"),
             rs.getLong("maximumSalary"),
-            EducationLevel.valueOf(rs.getString("educationLevel"))
+            this.getEducationLevelFromInt(rs.getInt("educationLevel"))
         );
     }
 
@@ -302,5 +302,20 @@ public class ApplicationDAOImpl implements ApplicationDAO {
         ResultSet rs = stmt.executeQuery();
 
         return rs;
+    }
+
+    /**
+     * Converts an integer number to EducationLevel enum.
+     * @param numberConstant Integer to convert.
+     * @return The required education level.
+     */
+    private EducationLevel getEducationLevelFromInt (int numberConstant) {
+        for (EducationLevel level : EducationLevel.values()) {
+            if (level.getLevel() == numberConstant) {
+                return level;
+            }
+        }
+
+        return null;
     }
 }
