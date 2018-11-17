@@ -15,10 +15,10 @@ explained [here](https://github.com/Benczus/WEBAppDev_webShopExercise).
 - Method: POST
 - URL Parameters: -
 - Body Parameters: The body must contain a JSON string with the following fields:
-    * ``companyId``: ID of the company what advertises the new job
-    * ``description``: Description of the job.
-    * ``minimumSalary``: Offered minimum salary.
-    * ``maximumSalary``: Offered maximum salary.
+    * ``companyId``: ID of the company what advertises the new job (number)
+    * ``description``: Description of the job (string)
+    * ``minimumSalary``: Offered minimum salary (number)
+    * ``maximumSalary``: Offered maximum salary (number)
     * ``requiredEducationLevel``: The required education level to fill the position (possible values are the following:
     ``"NO_PRIMARY_SCHOOL"``, ``"PRIMARY_SCHOOL"``, ``"SECONDARY_SCHOOL"``, ``"BACHELORS_DEGREE"``, ``"MASTERS_DEGREE"``, ``"DOCTORAL_DEGREE"``)
 - Successful Response: [See here](#Job-advertisement)
@@ -49,7 +49,7 @@ explained [here](https://github.com/Benczus/WEBAppDev_webShopExercise).
 - URL Pattern: /api/applications/applicant/:id
 - Method: GET
 - URL Parameters: 
-    * ``id`` (path variable): ID of the applicant
+    * ``id`` (path variable): ID of the applicant (number)
 - Body Parameters: -
 - Successful Response: [See here](#Collection-of-applications)
 - Error Response: [No application found](#No-application-found), [Persistence error](#Persistence-error), 
@@ -61,7 +61,7 @@ explained [here](https://github.com/Benczus/WEBAppDev_webShopExercise).
 - URL Pattern: /api/applications/job/:id
 - Method: GET
 - URL Parameters: 
-    * ``id`` (path variable): ID of the job
+    * ``id`` (path variable): ID of the job (number)
 - Body Parameters: -
 - Successful Response: [See here](#Collection-of-applications)
 - Error Response: [No application found](#No-application-found), [Persistence error](#Persistence-error),
@@ -70,17 +70,19 @@ explained [here](https://github.com/Benczus/WEBAppDev_webShopExercise).
 - Notes: -
 
 #### Read applications between a salary demand interval
+Returns all applications, where the applicant's salary demand is between the given interval.
+
 - URL Pattern: /api/applications/salaryDemand
 - Method: GET
 - URL Parameters: 
-    * minimumSalary: The minimum salary demand to search.
-    * maximumSalary: The maximum salary demand to search.
+    * minimumSalary: The minimum salary demand to search (number)
+    * maximumSalary: The maximum salary demand to search (number)
 - Body Parameters: -
 - Successful Response: [See here](#Collection-of-applications)
 - Error Response: [No application found](#No-application-found), [Persistence error](#Persistence-error), 
 [Malformed salary interval](#Malformed-salary-interval)
-- Request example: 
-- Notes: ``curl -i 'http://localhost:8080/api/applications/salaryDemand?minimumSalary=100000&maximumSalary=200000'``
+- Request example: ``curl -i 'http://localhost:8080/api/applications/salaryDemand?minimumSalary=100000&maximumSalary=200000'``
+- Notes: -
 
 #### Read applications by minimum education level
 - URL Pattern: /api/applications/requiredEducationLevel/:educationLevel
@@ -98,7 +100,7 @@ explained [here](https://github.com/Benczus/WEBAppDev_webShopExercise).
 - URL Pattern: /api/applications/company/:id
 - Method: GET
 - URL Parameters: 
-    * ``id`` (path variable): ID of the company
+    * ``id`` (path variable): ID of the company (number)
 - Body Parameters: -
 - Successful Response: [See here](#Collection-of-applications)
 - Error Response: [No application found](#No-application-found), [Persistence error](#Persistence-error), 
@@ -110,6 +112,9 @@ explained [here](https://github.com/Benczus/WEBAppDev_webShopExercise).
 
 #### Job advertisement
 The server responds with the following JSON when the given job is advertised successfully.
+
+HTTP status code: 200 (OK)
+
 ``success`` field indicates that the job is added successfully, ``job`` field contains the added job object.
 
 ```json
@@ -129,6 +134,8 @@ The server responds with the following JSON when the given job is advertised suc
 #### Collection of applications
 The server responds with the following JSON when the client calls an endpoint of ``/api/applications``, and applications
 are found.
+
+HTTP status code: 200 (OK)
 
 ``success`` field indicates that there are records with the given conditions in the database. 
 
@@ -174,9 +181,8 @@ are found.
 ```
 
 ### Error responses
-
 Every error responses have the following structure: 
-- ``success`` field have ``false`` value, indicates that the expected action ended in error
+- ``success`` field have ``false`` (boolean) value, indicates that the expected action ended in error
 - ``error`` field is a string, which contains the error message
 
 #### Persistence error
