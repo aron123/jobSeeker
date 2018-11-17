@@ -2,6 +2,9 @@ package hu.uni.miskolc.iit.uhv61t.jobSeeker.controller;
 
 import com.fasterxml.jackson.databind.exc.MismatchedInputException;
 import hu.uni.miskolc.iit.uhv61t.jobSeeker.controller.dto.ErrorResponse;
+import hu.uni.miskolc.iit.uhv61t.jobSeeker.core.exception.NotExistingApplicantException;
+import hu.uni.miskolc.iit.uhv61t.jobSeeker.core.exception.NotExistingCompanyException;
+import hu.uni.miskolc.iit.uhv61t.jobSeeker.core.exception.NotExistingJobException;
 import hu.uni.miskolc.iit.uhv61t.jobSeeker.core.exception.PersistenceException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,7 +21,7 @@ public class BaseController {
      */
     @ExceptionHandler(PersistenceException.class)
     public ResponseEntity<ErrorResponse> handlePersistenceException () {
-        return getErrorResponseEntity("Unable to persist data", HttpStatus.INTERNAL_SERVER_ERROR);
+        return getErrorResponseEntity("Database error occured", HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
     /**
@@ -27,6 +30,30 @@ public class BaseController {
     @ExceptionHandler(MismatchedInputException.class)
     public ResponseEntity<ErrorResponse> handleMismatchedInputException () {
         return getErrorResponseEntity("Unable to parse input (JSON is expected)", HttpStatus.BAD_REQUEST);
+    }
+
+    /**
+     * Handles NotExistingApplicantException exception.
+     */
+    @ExceptionHandler(NotExistingApplicantException.class)
+    public ResponseEntity<ErrorResponse> handleNotExistingApplicantException () {
+        return this.getErrorResponseEntity("No applicant exists with the given ID", HttpStatus.NOT_FOUND);
+    }
+
+    /**
+     * Handles NotExistingJobException exception.
+     */
+    @ExceptionHandler(NotExistingJobException.class)
+    public ResponseEntity<ErrorResponse> handleNotExistingJobException () {
+        return this.getErrorResponseEntity("No job exists with the given ID", HttpStatus.NOT_FOUND);
+    }
+
+    /**
+     * Handles NotExistingCompanyException exception.
+     */
+    @ExceptionHandler(NotExistingCompanyException.class)
+    public ResponseEntity<ErrorResponse> handleNotExistingCompanyException () {
+        return this.getErrorResponseEntity("No company exists with the given ID", HttpStatus.NOT_FOUND);
     }
 
     /**
