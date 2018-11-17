@@ -60,7 +60,7 @@ public class ApplicationDAOImpl implements ApplicationDAO {
         ResultSet rs;
 
         try {
-            rs = this.queryApplicationsWithOneIntParam(
+            rs = this.queryWithOneIntParam(
                 "SELECT id, applicantId, jobId, salaryDemand, motivationLetter FROM Applications WHERE companyId=?",
                     company.getCompanyId()
             );
@@ -83,7 +83,7 @@ public class ApplicationDAOImpl implements ApplicationDAO {
         ResultSet rs;
 
         try {
-            rs = this.queryApplicationsWithOneIntParam(
+            rs = this.queryWithOneIntParam(
                     "SELECT id, applicantId, jobId, salaryDemand, motivationLetter FROM Applications WHERE applicantId=?",
                     applicant.getApplicantId()
             );
@@ -105,7 +105,7 @@ public class ApplicationDAOImpl implements ApplicationDAO {
             throws NoApplicationFoundException, PersistenceException {
         ResultSet rs;
         try {
-            rs = this.queryApplicationsWithOneIntParam(
+            rs = this.queryWithOneIntParam(
                 "SELECT id, applicantId, jobId, salaryDemand, motivationLetter FROM Applications WHERE jobId=?",
                     job.getJobId()
             );
@@ -142,9 +142,6 @@ public class ApplicationDAOImpl implements ApplicationDAO {
             stmt.setLong(2, maximumSalary);
             rs = stmt.executeQuery();
 
-            if (!rs.next()) {
-                throw new NoApplicationFoundException();
-            }
         } catch (SQLException e) {
             throw new PersistenceException(e);
         }
@@ -164,7 +161,7 @@ public class ApplicationDAOImpl implements ApplicationDAO {
         ResultSet rs;
 
         try {
-            rs = this.queryApplicationsWithOneIntParam(
+            rs = this.queryWithOneIntParam(
                     "SELECT id, applicantId, jobId, salaryDemand, motivationLetter FROM Applications WHERE educationLevel >= ?",
                     //TODO
                     Integer.valueOf(level.toString())
@@ -287,23 +284,6 @@ public class ApplicationDAOImpl implements ApplicationDAO {
             rs.getString("description"),
             rs.getInt("employeeCount")
         );
-    }
-
-    /**
-     * Reads records from database, and throws NoApplicationFound exception when no record found.
-     * @param sql SQL statement to run in database.
-     * @param param The integer parameter of the SQL statement.
-     * @return Result set of the query.
-     * @throws NoApplicationFoundException
-     * @throws SQLException
-     */
-    private ResultSet queryApplicationsWithOneIntParam(String sql, int param) throws NoApplicationFoundException, SQLException {
-        ResultSet rs = queryWithOneIntParam(sql, param);
-        if (!rs.next()) {
-            throw new NoApplicationFoundException();
-        }
-
-        return rs;
     }
 
     /**
