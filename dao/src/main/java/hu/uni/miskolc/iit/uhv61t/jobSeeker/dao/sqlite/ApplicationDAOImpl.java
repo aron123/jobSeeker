@@ -51,11 +51,11 @@ public class ApplicationDAOImpl implements ApplicationDAO {
     /**
      * Reads all applications of the given company from the database.
      *
-     * @param company The company to search applications of.
+     * @param companyId The company to search applications of.
      * @throws NoApplicationFoundException
      * @throws NotExistingCompanyException
      */
-    public Collection<Application> readApplicationsByCompany(Company company)
+    public Collection<Application> readApplicationsByCompany(int companyId)
             throws NoApplicationFoundException, PersistenceException {
         ResultSet rs;
 
@@ -65,7 +65,7 @@ public class ApplicationDAOImpl implements ApplicationDAO {
                         "FROM Applications a INNER JOIN Jobs j ON a.jobId=j.id " +
                         "INNER JOIN Companies c ON j.companyId = c.id " +
                         "WHERE c.id=?",
-                    company.getCompanyId()
+                    companyId
             );
         } catch (SQLException e) {
             throw new PersistenceException(e);
@@ -77,18 +77,18 @@ public class ApplicationDAOImpl implements ApplicationDAO {
     /**
      * Reads all applications of the given applicant from the database.
      *
-     * @param applicant The applicant to search applications of.
+     * @param applicantId The applicant to search applications of.
      * @throws NoApplicationFoundException
      * @throws PersistenceException
      */
-    public Collection<Application> readApplicationsByApplicant(Applicant applicant) throws NoApplicationFoundException,
+    public Collection<Application> readApplicationsByApplicant(int applicantId) throws NoApplicationFoundException,
             PersistenceException {
         ResultSet rs;
 
         try {
             rs = this.queryWithOneIntParam(
                     "SELECT id, applicantId, jobId, salaryDemand, motivationLetter FROM Applications WHERE applicantId=?",
-                    applicant.getApplicantId()
+                    applicantId
             );
         } catch (SQLException e) {
             throw new PersistenceException(e);
@@ -100,17 +100,17 @@ public class ApplicationDAOImpl implements ApplicationDAO {
     /**
      * Reads all applications to the given job from the database.
      *
-     * @param job The job to search applications to.
+     * @param jobId The job to search applications to.
      * @throws NoApplicationFoundException
      * @throws PersistenceException
      */
-    public Collection<Application> readApplicationsByJob(Job job)
+    public Collection<Application> readApplicationsByJob(int jobId)
             throws NoApplicationFoundException, PersistenceException {
         ResultSet rs;
         try {
             rs = this.queryWithOneIntParam(
                 "SELECT id, applicantId, jobId, salaryDemand, motivationLetter FROM Applications WHERE jobId=?",
-                    job.getJobId()
+                    jobId
             );
         } catch (SQLException e) {
             throw new PersistenceException(e);

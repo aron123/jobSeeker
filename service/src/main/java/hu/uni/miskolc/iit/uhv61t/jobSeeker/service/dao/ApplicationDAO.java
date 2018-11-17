@@ -19,29 +19,29 @@ public interface ApplicationDAO {
 
     /**
      * Reads all applications of the given company from the database.
-     * @param company The company to search applications of.
+     * @param companyId The company to search applications of.
      * @throws NoApplicationFoundException
      * @throws NotExistingCompanyException
      */
-    Collection<Application> readApplicationsByCompany(Company company)
+    Collection<Application> readApplicationsByCompany(int companyId)
             throws NoApplicationFoundException, PersistenceException;
 
     /**
      * Reads all applications of the given applicant from the database.
-     * @param applicant The applicant to search applications of.
+     * @param applicantId The applicant to search applications of.
      * @throws NoApplicationFoundException
      * @throws NotExistingApplicantException
      */
-    Collection<Application> readApplicationsByApplicant(Applicant applicant)
+    Collection<Application> readApplicationsByApplicant(int applicantId)
             throws NoApplicationFoundException, PersistenceException;
 
     /**
      * Reads all applications to the given job from the database.
-     * @param job The job to search applications to.
+     * @param jobId The job to search applications to.
      * @throws NoApplicationFoundException
      * @throws NotExistingJobException
      */
-    Collection<Application> readApplicationsByJob(Job job)
+    Collection<Application> readApplicationsByJob(int jobId)
             throws NoApplicationFoundException, PersistenceException;
 
     /**

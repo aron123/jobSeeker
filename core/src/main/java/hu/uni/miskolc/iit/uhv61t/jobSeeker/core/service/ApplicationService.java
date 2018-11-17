@@ -18,15 +18,15 @@ public interface ApplicationService {
 
     /**
      * Lists all applications of the given applicant.
-     * @param applicant The applicant who's applications are searched.
+     * @param applicantId The applicant who's applications are searched.
      */
-    Collection<Application> listApplicationsByApplicant(Applicant applicant) throws NoApplicationFoundException, NotExistingApplicantException, PersistenceException;
+    Collection<Application> listApplicationsByApplicant(int applicantId) throws NoApplicationFoundException, NotExistingApplicantException, PersistenceException;
 
     /**
      * Lists all applications to the given job.
-     * @param job The job what's applications are searched.
+     * @param jobId The job what's applications are searched.
      */
-    Collection<Application> listApplicationsByJob(Job job) throws NoApplicationFoundException, NotExistingJobException, PersistenceException;
+    Collection<Application> listApplicationsByJob(int jobId) throws NoApplicationFoundException, NotExistingJobException, PersistenceException;
 
     /**
      * Lists all applications with the given salary demand interval.
@@ -43,7 +43,7 @@ public interface ApplicationService {
 
     /**
      * Lists applications to the given company.
-     * @param company The company to search for.
+     * @param companyId The company to search for.
      */
-    public Collection<Application> listApplicationsByCompany(Company company) throws NoApplicationFoundException, NotExistingCompanyException, PersistenceException;
+    public Collection<Application> listApplicationsByCompany(int companyId) throws NoApplicationFoundException, NotExistingCompanyException, PersistenceException;
 }

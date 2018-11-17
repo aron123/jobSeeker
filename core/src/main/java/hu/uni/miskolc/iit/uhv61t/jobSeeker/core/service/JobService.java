@@ -2,12 +2,7 @@ package hu.uni.miskolc.iit.uhv61t.jobSeeker.core.service;
 
 
 import hu.uni.miskolc.iit.uhv61t.jobSeeker.core.exception.*;
-import hu.uni.miskolc.iit.uhv61t.jobSeeker.core.model.Application;
-import hu.uni.miskolc.iit.uhv61t.jobSeeker.core.model.Company;
 import hu.uni.miskolc.iit.uhv61t.jobSeeker.core.model.Job;
-
-import java.sql.SQLException;
-import java.util.Collection;
 
 /**
  * Represents service for the companies.

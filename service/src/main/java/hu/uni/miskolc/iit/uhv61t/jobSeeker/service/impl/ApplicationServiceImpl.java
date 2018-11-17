@@ -27,20 +27,20 @@ public class ApplicationServiceImpl implements ApplicationService {
     /**
      * Lists all applications of the given applicant.
      *
-     * @param applicant The applicant who's applications are searched.
+     * @param applicantId The applicant who's applications are searched.
      */
-    public Collection<Application> listApplicationsByApplicant(Applicant applicant)
+    public Collection<Application> listApplicationsByApplicant(int applicantId)
             throws NoApplicationFoundException, PersistenceException {
-        return dao.readApplicationsByApplicant(applicant);
+        return dao.readApplicationsByApplicant(applicantId);
     }
 
     /**
      * Lists all applications to the given job.
      *
-     * @param job The job what's applications are searched.
+     * @param jobId The job what's applications are searched.
      */
-    public Collection<Application> listApplicationsByJob(Job job) throws NoApplicationFoundException, PersistenceException {
-        return dao.readApplicationsByJob(job);
+    public Collection<Application> listApplicationsByJob(int jobId) throws NoApplicationFoundException, PersistenceException {
+        return dao.readApplicationsByJob(jobId);
     }
 
     /**
@@ -67,10 +67,10 @@ public class ApplicationServiceImpl implements ApplicationService {
     /**
      * Lists applications to the given company.
      *
-     * @param company The company to search for.
+     * @param companyId The company to search for.
      */
-    public Collection<Application> listApplicationsByCompany(Company company)
+    public Collection<Application> listApplicationsByCompany(int companyId)
             throws NoApplicationFoundException, PersistenceException {
-        return dao.readApplicationsByCompany(company);
+        return dao.readApplicationsByCompany(companyId);
     }
 }
