@@ -1,16 +1,17 @@
-# Job seeker
+Job seeker
+==========
 This repo contains my solution to the assignment of Web Application Development Course. Details of the assignment are
 explained [here](https://github.com/Benczus/WEBAppDev_webShopExercise).
 
-## Author
+# 1. Author
 - Name: Kiss Áron
 - Neptun code: UHV61T
 
-## API Documentation
+# 2.  API Documentation
 
-### Endpoints
+## 2.1 Endpoints
 
-#### Advertise new job
+### 2.1.1 Advertise new job
 - URL Pattern: /api/jobs/advertise
 - Method: POST
 - URL Parameters: -
@@ -21,8 +22,8 @@ explained [here](https://github.com/Benczus/WEBAppDev_webShopExercise).
     * ``maximumSalary``: Offered maximum salary (number)
     * ``requiredEducationLevel``: The required education level to fill the position (possible values are the following:
     ``"NO_PRIMARY_SCHOOL"``, ``"PRIMARY_SCHOOL"``, ``"SECONDARY_SCHOOL"``, ``"BACHELORS_DEGREE"``, ``"MASTERS_DEGREE"``, ``"DOCTORAL_DEGREE"``)
-- Successful Response: [See here](#Job-advertisement)
-- Error Response: [Parsing error](#Parsing-error), [Persistence error](#Persistence-error), [Malformed salary interval](#Malformed-salary-interval)
+- Successful Response: [See here](#221-Job-advertisement)
+- Error Response: [Parsing error](#232-Parsing-error), [Persistence error](#231-Persistence-error), [Malformed salary interval](#233-Malformed-salary-interval)
 - Request example: 
     ```
     curl -H 'Content-Type:application/json' -d "{\"companyId\": 1,\"description\": \"Example job description\",\"minimumSalary\": 150000,\"maximumSalary\": 200000,\"requiredEducationLevel\":\"DOCTORAL_DEGREE\"}" -i http://localhost:8080/api/jobs/advertise
@@ -35,41 +36,41 @@ explained [here](https://github.com/Benczus/WEBAppDev_webShopExercise).
     ```
 - Notes: -
 
-#### Read all applications
+### 2.1.2 Read all applications
 - URL Pattern: /api/applications
 - Method: GET
 - URL Parameters: -
 - Body Parameters: -
-- Successful Response: [See here](#Collection-of-applications)
-- Error Response: [No application found](#No-application-found), [Persistence error](#Persistence-error)
+- Successful Response: [See here](#222-Collection-of-applications)
+- Error Response: [No application found](#234-No-application-found), [Persistence error](#231-Persistence-error)
 - Request example: ``curl -i http://localhost:8080/api/applications``
 - Notes: -
 
-#### Read applications of an applicant
+### 2.1.3 Read applications of an applicant
 - URL Pattern: /api/applications/applicant/:id
 - Method: GET
 - URL Parameters: 
     * ``id`` (path variable): ID of the applicant (number)
 - Body Parameters: -
-- Successful Response: [See here](#Collection-of-applications)
-- Error Response: [No application found](#No-application-found), [Persistence error](#Persistence-error), 
-[Not existing applicant](#Not-existing-applicant)
+- Successful Response: [See here](#222-Collection-of-applications)
+- Error Response: [No application found](#234-No-application-found), [Persistence error](#231-Persistence-error), 
+[Not existing applicant](#235-Not-existing-applicant)
 - Request example: ``curl -i http://localhost:8080/api/applications/applicant/3``
 - Notes: -
 
-#### Read applications to a job
+### 2.1.4 Read applications to a job
 - URL Pattern: /api/applications/job/:id
 - Method: GET
 - URL Parameters: 
     * ``id`` (path variable): ID of the job (number)
 - Body Parameters: -
-- Successful Response: [See here](#Collection-of-applications)
-- Error Response: [No application found](#No-application-found), [Persistence error](#Persistence-error),
-[Not existing job](#Not-existing-job)
+- Successful Response: [See here](#222-Collection-of-applications)
+- Error Response: [No application found](#234-No-application-found), [Persistence error](#231-Persistence-error),
+[Not existing job](#236-Not-existing-job)
 - Request example: ``curl -i http://localhost:8080/api/applications/job/1``
 - Notes: -
 
-#### Read applications between a salary demand interval
+### 2.1.5 Read applications between a salary demand interval
 Returns all applications, where the applicant's salary demand is between the given interval.
 
 - URL Pattern: /api/applications/salaryDemand
@@ -78,13 +79,13 @@ Returns all applications, where the applicant's salary demand is between the giv
     * minimumSalary: The minimum salary demand to search (number)
     * maximumSalary: The maximum salary demand to search (number)
 - Body Parameters: -
-- Successful Response: [See here](#Collection-of-applications)
-- Error Response: [No application found](#No-application-found), [Persistence error](#Persistence-error), 
-[Malformed salary interval](#Malformed-salary-interval)
+- Successful Response: [See here](#222-Collection-of-applications)
+- Error Response: [No application found](#234-No-application-found), [Persistence error](#231-Persistence-error), 
+[Malformed salary interval](#233-Malformed-salary-interval)
 - Request example: ``curl -i 'http://localhost:8080/api/applications/salaryDemand?minimumSalary=100000&maximumSalary=200000'``
 - Notes: -
 
-#### Read applications by minimum education level
+### 2.1.6 Read applications by minimum education level
 Returns all applications, where the job's required education level is equal or above the given level.
 
 - URL Pattern: /api/applications/requiredEducationLevel/:educationLevel
@@ -93,26 +94,26 @@ Returns all applications, where the job's required education level is equal or a
     * ``educationLevel`` (path variable): The required education level to apply for the job 
     (one of the following: ``"NO_PRIMARY_SCHOOL"``, ``"PRIMARY_SCHOOL"``, ``"SECONDARY_SCHOOL"``, ``"BACHELORS_DEGREE"``, ``"MASTERS_DEGREE"``, ``"DOCTORAL_DEGREE"``)
 - Body Parameters: -
-- Successful Response: [See here](#Collection-of-applications)
-- Error Response: [No application found](#No-application-found), [Persistence error](#Persistence-error)
-- Request example: ``http://localhost:8080/api/applications/requiredEducationLevel/BACHELORS_DEGREE``
+- Successful Response: [See here](#222-Collection-of-applications)
+- Error Response: [No application found](#234-No-application-found), [Persistence error](#231-Persistence-error)
+- Request example: ``curl -i http://localhost:8080/api/applications/requiredEducationLevel/BACHELORS_DEGREE``
 - Notes: -
 
-#### Read applications to a company
+### 2.1.7 Read applications to a company
 - URL Pattern: /api/applications/company/:id
 - Method: GET
 - URL Parameters: 
     * ``id`` (path variable): ID of the company (number)
 - Body Parameters: -
-- Successful Response: [See here](#Collection-of-applications)
-- Error Response: [No application found](#No-application-found), [Persistence error](#Persistence-error), 
-[Not existing company](#Not-existing-company)
+- Successful Response: [See here](#222-Collection-of-applications)
+- Error Response: [No application found](#234-No-application-found), [Persistence error](#231-Persistence-error), 
+[Not existing company](#237-Not-existing-company)
 - Request example: ``curl -i http://localhost:8080/api/applications/company/1``
 - Notes: -
 
-### Successful responses
+## 2.2 Successful responses
 
-#### Job advertisement
+### 2.2.1 Job advertisement
 The server responds with the following JSON when the given job is advertised successfully.
 
 HTTP status code: 200 (OK)
@@ -133,7 +134,7 @@ HTTP status code: 200 (OK)
 }
 ```
 
-#### Collection of applications
+### 2.2.2 Collection of applications
 The server responds with the following JSON when the client calls an endpoint of ``/api/applications``, and applications
 are found.
 
@@ -155,7 +156,7 @@ HTTP status code: 200 (OK)
                 "name": "Kovacs Bela",
                 "email": "kb@example.com",
                 "mobileNumber": "06301234567",
-                "educationLevel": "NO_PRIMARY_SCHOOL",
+                "educationLevel": "BACHELORS_DEGREE",
                 "profession": "DevOp"
             },
             "job": {
@@ -182,12 +183,12 @@ HTTP status code: 200 (OK)
 }
 ```
 
-### Error responses
+## 2.3 Error responses
 Every error responses have the following structure: 
 - ``success`` field have ``false`` (boolean) value, indicates that the expected action ended in error
 - ``error`` field is a string, which contains the error message
 
-#### Persistence error
+### 2.3.1 Persistence error
 - Reason: Error occurred while server tried to communicate with the database.
 - HTTP status code: 500 (Internal Server Error)
 
@@ -198,7 +199,7 @@ Every error responses have the following structure:
 }
 ```
 
-#### Parsing error
+###  2.3.2 Parsing error
 - Reason: Error occurred while server tried to parse the client's request.
 - HTTP status code: 400 (Bad Request)
 
@@ -209,7 +210,7 @@ Every error responses have the following structure:
 }
 ```
 
-#### Malformed salary interval
+###  2.3.3 Malformed salary interval
 - Reason: The client sent malformed salary interval to the server (minimum salary is greater than maximum salary).
 - HTTP status code: 400 (Bad Request)
 
@@ -220,7 +221,7 @@ Every error responses have the following structure:
 }
 ```
 
-#### No application found
+###  2.3.4 No application found
 - Reason: The server found no application with certain conditions.
 - HTTP status code: 404 (Not Found)
 
@@ -231,7 +232,7 @@ Every error responses have the following structure:
 }
 ```
 
-#### Not existing applicant
+### 2.3.5 Not existing applicant
 - Reason: The server found no applicant with the given ID.
 - HTTP status code: 404 (Not Found)
 
@@ -242,7 +243,7 @@ Every error responses have the following structure:
 }
 ```
 
-#### Not existing job
+### 2.3.6 Not existing job
 - Reason: The server found no job with the given ID.
 - HTTP status code: 404 (Not Found)
 
@@ -253,7 +254,7 @@ Every error responses have the following structure:
 }
 ```
 
-#### Not existing company
+### 2.3.7 Not existing company
 - Reason: The server found no company with the given ID.
 - HTTP status code: 404 (Not Found)
 
