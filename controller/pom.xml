@@ -90,7 +90,7 @@
                     </execution>
                 </executions>
                 <configuration>
-                    <sources>${project.basedir}/resources/dto/DTOTypes.xsd</sources>
+                    <sources>${project.parent.basedir}/controller/resources/dto/DTOTypes.xsd</sources>
                     <packageName>hu.uni.miskolc.iit.uhv61t.jobSeeker.controller.dto</packageName>
                 </configuration>
             </plugin>
